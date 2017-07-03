@@ -152,7 +152,7 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("Dialog", "Path data:", None, QtGui.QApplication.UnicodeUTF8))
         #self.lineEdit.setText(QtGui.QApplication.translate("Dialog", "/home/ar/datasets/Demos/data-demo-remote-sensing/cfg.ini", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButtonPath.setText(QtGui.QApplication.translate("Dialog", "...", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButtonPath.setText(QtGui.QApplication.translate("Dialog", "Choose model", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButtonLoad.setText(QtGui.QApplication.translate("Dialog", "Load data", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("Dialog", "Available images:", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButtonPreview.setText(QtGui.QApplication.translate("Dialog", "Preview", None, QtGui.QApplication.UnicodeUTF8))
