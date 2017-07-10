@@ -2,6 +2,7 @@
 import warnings
 warnings.filterwarnings("ignore")
 
+from keras import backend as K
 
 import os
 import sys
@@ -21,6 +22,13 @@ from keras.models import load_model
 
 
 import dialog_pyside as design
+
+##############################################
+def set_keras_backend(backend):
+    if K.backend() != backend:
+        os.environ['KERAS_BACKEND'] = backend
+        reload(K)
+        assert K.backend() == backend
 
 ##############################################
 
@@ -73,7 +81,7 @@ class DemoApp(QtGui.QDialog, design.Ui_Dialog):
     def __init__(self):
         super(self.__class__, self).__init__()
         self.setupUi(self)
-        self.oldPath = os.path.expanduser('~')
+        self.oldPath = os.path.expanduser('.')
         #
         self.scene = QtGui.QGraphicsScene()
         self.sceneSize = (40000, 40000)
@@ -203,6 +211,12 @@ class DemoApp(QtGui.QDialog, design.Ui_Dialog):
                 except:
                     tmask = np.zeros_like(timg)
                     print("found no mask for such image")
+                try:
+                    import cv2
+                    cv2.putText(tmask, "Ground truth mask", (100,100), cv2.FONT_HERSHEY_PLAIN, 6., (30, 30, 30 ), 7, 8)
+                    cv2.putText(tmask, "Ground truth mask", (100,100), cv2.FONT_HERSHEY_PLAIN, 6., (255,0 , 0  ), 5, 8)
+                except Exception as err:
+                    print("Cant import OpenCV library... [{0}]".format(err))
                 tpxm = convertMat2Pixmap(np.concatenate((timg,tmask),axis = 1))
                 self.addPixmap2Scene(tpxm)
                 self.stopProgress()
@@ -315,6 +329,7 @@ class DemoApp(QtGui.QDialog, design.Ui_Dialog):
         self.drawSegmented()
 
 if __name__=='__main__':
+#    set_keras_backend("theano")
     app = QtGui.QApplication(sys.argv)
     form = DemoApp()
     form.show()
